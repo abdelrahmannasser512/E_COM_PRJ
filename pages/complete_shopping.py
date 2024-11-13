@@ -28,7 +28,6 @@ class CompleteShopping:
         select_terms_of_service_checkbox=ActionChains(self.browser).click(self.browser.find_element(*CompleteShopping.terms_of_service_checkbox)).perform()
     def click_checkout_button(self):
         select_checkout_button=ActionChains(self.browser).click(self.browser.find_element(*CompleteShopping.checkout_button)).perform()
-        
     
 
 

@@ -1,0 +1,41 @@
+import unittest
+from selenium import webdriver
+from LoginPage import LoginPage
+from cart import CartPage
+import time
+
+
+class CartPageTest():
+    
+    #@classmethod
+    #def setUpClass(cls):
+    #    cls.driver = webdriver.Chrome()  # Update with your driver path if needed
+    #    cls.driver.get("https://automationteststore.com/index.php?rt=checkout/cart")
+
+    def test_cart_operations(self):
+        cart_page = CartPage(self.driver)
+
+        
+        cart_page.increase_product_quantity(quantity=2)
+        time.sleep(2)  
+
+        
+        cart_page.delete_product(index=1)
+        time.sleep(2)
+
+        
+        cart_page.click_checkout()
+        time.sleep(2)  
+        self.assertIn("Checkout Confirmation", self.driver.current_url)
+
+        cart_page.confirm_checkout()
+        time.sleep(2)
+        self.assertIn("Your Order Has Been Processed!", self.driver.current_url)
+
+
+
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+
