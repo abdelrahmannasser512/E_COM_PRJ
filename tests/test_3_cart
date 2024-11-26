@@ -17,16 +17,15 @@ class CartPageTest():
 
         
         cart_page.increase_product_quantity(quantity=2)
-        time.sleep(2)  
 
         
         cart_page.delete_product(index=1)
-        time.sleep(2)
 
         
         cart_page.click_checkout()
-        time.sleep(2)  
         self.assertIn("Checkout Confirmation", self.driver.current_url)
+        time.sleep(2)
+
 
         cart_page.confirm_checkout()
         time.sleep(2)
