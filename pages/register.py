@@ -38,61 +38,67 @@ class Register:
     def load(self):
         self.browser.get(Register.URL)
         self.browser.maximize_window()
+    def click_element(self, locator):
+        try:
+            element = self.wait.until(EC.element_to_be_clickable(locator))
+            assert element is not None , "element not found "
+            element.click()
+        except Exception as e:
+            raise Exception(f"Unable to click element with locator {locator}: {e}")
+    def send_element_keys(self, locator,sended_item):
+        try:
+            element = self.wait.until(EC.element_to_be_clickable(locator))
+            assert element is not None , "element not found "
+            element.send_keys(sended_item)
+        except Exception as e:
+            raise Exception(f"Unable to click element with locator {locator}: {e}")
 
     def click_continue(self):
 
-        click_continue_button_element = self.browser.find_element(*Register.coninue_button)
-        ActionChains(self.browser).click(click_continue_button_element).perform()
+        self.click_element(Register.coninue_button)
         time.sleep(5)
     def select_first_name(self):
-        select_first_name_blank=self.browser.find_element(*Register.first_name)
-        select_first_name_blank.send_keys("Abdelrahman")
-
+        self.send_element_keys(Register.first_name,"Abdelrahman")
+        
     def select_last_name(self):
-        select_last_name_blank=self.browser.find_element(*Register.last_name)
-        select_last_name_blank.send_keys("sayednasserahmed")
+        self.send_element_keys(Register.first_name,"sayednasserahmed")
 
     def select_e_mail(self):
-        select_email=self.browser.find_element(*Register.email)
-        select_email.send_keys("abdelrahmannasser512@gmail.com")
-    def select_country(self):
+        self.send_element_keys(Register.email,"sayednasserahmed")
 
+    def select_country(self):
         country_dropdown = self.browser.find_element(*Register.country)
         select = Select(country_dropdown)
         select.select_by_value("63")
-    def select_state(self):
 
+    def select_state(self):
         state_dropdown = self.browser.find_element(*Register.state)
         select = Select(state_dropdown)
         select.select_by_value("1008")
+
     def select_city(self):
-        select_city=self.browser.find_element(*Register.city)
-        select_city.send_keys("4hhn.cairo.egypt.africa")
+        self.send_element_keys(Register.city,"4hhn.cairo.egypt.africa")
+
     def select_address_1(self):
-        select_address_1=self.browser.find_element(*Register.adrress_1)
-        select_address_1.send_keys("4hhn.cairo.egypt.africa")
+        self.send_element_keys(Register.adrress_1,"4hhn.cairo.egypt.africa")
+
     def select_zip_code(self):
-        select_zip_code=self.browser.find_element(*Register.ZIP_CODE)
-        select_zip_code.send_keys("4hhn.cairo.egypt.africa")
+        self.send_element_keys(Register.adrress_1,"10025")
 
     def select_the_login_name(self):
-        select_login_name=self.browser.find_element(*Register.login_name)
-        select_login_name.send_keys("abdelrahmannasser")
+        self.send_element_keys(Register.login_name,"abdelrahmannasser")
 
     def select__the_pass_word(self):
-        select_login_password=self.browser.find_element(*Register.thepassword)
-        select_login_password.send_keys("rhrS!Jr5FPaKuV")
+        self.send_element_keys(Register.thepassword,"rhrS!Jr5FPaKuV")
 
     def select_confirm_pass_word(self):
-        select_confirm_password=self.browser.find_element(*Register.confirm_password)
-        select_confirm_password.send_keys("rhrS!Jr5FPaKuV")
+        self.send_element_keys(Register.coninue_button,"rhrS!Jr5FPaKuV")
+
     def click_privacy_policy(self):
 
-        click_privacy_polic_element = self.browser.find_element(*Register.privacy_policy)
-        ActionChains(self.browser).click(click_privacy_polic_element).perform()
+        self.click_element(Register.privacy_policy)
     def click_continue_button(self):
 
-        click_continue_button_element = self.browser.find_element(*Register.continue_button2)
-        ActionChains(self.browser).click(click_continue_button_element).perform()
+        self.click_element(Register.continue_button2)
         time.sleep(5)
         webdriver.Chrome().quit()

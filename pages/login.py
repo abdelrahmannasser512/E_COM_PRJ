@@ -21,28 +21,24 @@ class WebLoginPage:
       def __init__(self,browser):
             self.browser=browser
          
-      def load(self):
-            #      self.browser.delete_all_cookies()
-                 
+      def load(self):                 
             self.browser.get(WebLoginPage.LOGIN_URL)
             self.browser.maximize_window()
             time.sleep(10)
+      def click_element(self, locator):
+        try:
+            element = self.wait.until(EC.element_to_be_clickable(locator))
+            assert element is not None , "element not found "
+            element.click()
+        except Exception as e:
+            raise Exception(f"Unable to click element with locator {locator}: {e}")
 
-
-                 
-        
       def select_the_login_name(self):
-            select_login_name=self.browser.find_element(*WebLoginPage.login_name)
-            select_login_name.send_keys("abdelrahmannasser")
-
+            self.click_element(WebLoginPage.login_name).send_keys("abdelrahmannasser")
       def select__the_pass_word(self):
-            select_login_password=self.browser.find_element(*WebLoginPage.thepassword)
-            select_login_password.send_keys("rhrS!Jr5FPaKuV")
-
+            self.click_element(WebLoginPage.thepassword).send_keys("rhrS!Jr5FPaKuV")
       def select_login_button(self):
-            click_login_button  = self.browser.find_element(*WebLoginPage.login_button)
-           
-            ActionChains(self.browser).click(click_login_button).perform()
+            self.click_element(WebLoginPage.login_button) 
             time.sleep(2)
             
               
